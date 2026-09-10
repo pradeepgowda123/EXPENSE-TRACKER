@@ -1,191 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Tracker</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
+    <title>Expense Management Platform</title>
 
-        .container {
-            max-width: 450px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        .balance {
-            background: #4CAF50;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #2196F3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background: #0b7dda;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            background: #eee;
-            padding: 10px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            border-radius: 5px;
-        }
-
-        .income {
-            border-left: 5px solid green;
-        }
-
-        .expense {
-            border-left: 5px solid red;
-        }
-
-        .delete-btn {
-            background: red;
-            color: white;
-            border: none;
-            padding: 5px 8px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="container">
-    <h2>Expense Tracker</h2>
+    <div class="container">
 
-    <div class="balance">
-        Balance: ₹<span id="balance">0</span>
+        <!-- Header -->
+        <header class="header">
+            <h1>Expense Management</h1>
+            <p>Track your income, expenses and financial balance.</p>
+        </header>
+
+
+        <!-- Summary Cards -->
+        <section class="summary">
+
+            <div class="card balance-card">
+                <div class="card-title">Current Balance</div>
+
+                <div class="card-value">
+                    ₹<span id="balance">0.00</span>
+                </div>
+            </div>
+
+
+            <div class="card income-card">
+                <div class="card-title">Total Income</div>
+
+                <div class="card-value">
+                    ₹<span id="income">0.00</span>
+                </div>
+            </div>
+
+
+            <div class="card expense-card">
+                <div class="card-title">Total Expenses</div>
+
+                <div class="card-value">
+                    ₹<span id="expense">0.00</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Main Content -->
+        <main class="main-grid">
+
+            <!-- Add Transaction -->
+            <section class="panel">
+
+                <h2>Add Transaction</h2>
+
+                <form id="transactionForm">
+
+                    <div class="form-group">
+
+                        <label for="title">
+                            Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            placeholder="e.g. Grocery shopping"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="amount">
+                            Amount
+                        </label>
+
+                        <input
+                            type="number"
+                            id="amount"
+                            placeholder="Enter amount"
+                            min="1"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="type">
+                            Type
+                        </label>
+
+                        <select id="type">
+
+                            <option value="expense">
+                                Expense
+                            </option>
+
+                            <option value="income">
+                                Income
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="category">
+                            Category
+                        </label>
+
+                        <select id="category">
+
+                            <option value="auto">
+                                Auto Detect
+                            </option>
+
+                            <option value="Food">
+                                Food
+                            </option>
+
+                            <option value="Transport">
+                                Transport
+                            </option>
+
+                            <option value="Shopping">
+                                Shopping
+                            </option>
+
+                            <option value="Bills">
+                                Bills
+                            </option>
+
+                            <option value="Entertainment">
+                                Entertainment
+                            </option>
+
+                            <option value="Health">
+                                Health
+                            </option>
+
+                            <option value="Education">
+                                Education
+                            </option>
+
+                            <option value="Salary">
+                                Salary
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="date">
+                            Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn add-btn"
+                    >
+                        Add Transaction
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- Transactions -->
+            <section class="panel">
+
+                <h2>Transactions</h2>
+
+                <div class="filters">
+
+                    <input
+                        type="text"
+                        id="search"
+                        placeholder="Search transactions..."
+                    >
+
+
+                    <select id="filterType">
+
+                        <option value="all">
+                            All
+                        </option>
+
+                        <option value="income">
+                            Income
+                        </option>
+
+                        <option value="expense">
+                            Expenses
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <ul
+                    id="transactionList"
+                    class="transaction-list"
+                ></ul>
+
+            </section>
+
+        </main>
+
     </div>
 
-    <label>Title</label>
-    <input type="text" id="title">
 
-    <label>Amount</label>
-    <input type="number" id="amount">
+    <!-- Notification -->
+    <div
+        id="notification"
+        class="notification"
+    ></div>
 
-    <label>Type</label>
-    <select id="type">
-        <option value="income">Income</option>
-        <option value="expense">Expense</option>
-    </select>
 
-    <label>Date</label>
-    <input type="date" id="date">
-
-    <button onclick="addTransaction()">Add Transaction</button>
-
-    <h3>Transactions</h3>
-    <ul id="list"></ul>
-</div>
-
-<script>
-    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-
-    function updateUI() {
-        const list = document.getElementById("list");
-        list.innerHTML = "";
-
-        let income = 0, expense = 0;
-
-        transactions.forEach((t) => {
-            const li = document.createElement("li");
-            li.classList.add(t.type);
-
-            li.innerHTML = `
-                ${t.title} (₹${t.amount}) - ${t.date}
-                <button class="delete-btn" onclick="deleteTransaction(${t.id})">X</button>
-            `;
-
-            list.appendChild(li);
-
-            if (t.type === "income") income += t.amount;
-            else expense += t.amount;
-        });
-
-        document.getElementById("balance").innerText = income - expense;
-        localStorage.setItem("transactions", JSON.stringify(transactions));
-    }
-
-    function addTransaction() {
-        const title = document.getElementById("title").value;
-        const amount = Number(document.getElementById("amount").value);
-        const type = document.getElementById("type").value;
-        const date = document.getElementById("date").value;
-
-        if (!title || !amount || !date) {
-            alert("Please fill all fields");
-            return;
-        }
-
-        const newTransaction = {
-            id: Date.now(),
-            title,
-            amount,
-            type,
-            date
-        };
-
-        transactions.push(newTransaction);
-        updateUI();
-
-        document.getElementById("title").value = "";
-        document.getElementById("amount").value = "";
-        document.getElementById("date").value = "";
-    }
-
-    function deleteTransaction(id) {
-        transactions = transactions.filter(t => t.id !== id);
-        updateUI();
-    }
-
-    updateUI();
-</script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
